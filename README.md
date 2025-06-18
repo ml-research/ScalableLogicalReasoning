@@ -1,118 +1,122 @@
 
-# SLR: An Automated Framework for Scalable Logical Reasoning in LLMs
+# SLR: Scalable Logical Reasoning for Large Language Models
 
+[![Website](https://img.shields.io/badge/Website-SLR-green)](https://slr-project.github.io)
 [![Paper (arXiv)](https://img.shields.io/badge/Paper-arXiv-red)](LINK_TO_PAPER)
+[![Hugging Face](https://img.shields.io/badge/🤗%20Hugging%20Face-Datasets-yellow)](https://huggingface.co/datasets/SLR)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-
-> **Note:** The code is currently being cleaned up for public release. Installation and usage instructions will be finalized soon!
+> **Note:** Source code will be released soon! Dataset, evaluators, and instructions will follow shortly.
 
 ---
 
 ## Overview
 
-**SLR** (*Scalable Logical Reasoning*) is an open-source end-to-end framework for the systematic evaluation and training of Large Language Models (LLMs) using scalable, curriculum-driven logical reasoning tasks. SLR (\metalogic) synthesizes inductive reasoning tasks at controlled difficulty, enabling automated creation of benchmarks and curricula—guaranteeing novelty, symbolic evaluation, and extensibility.
+**SLR** (*Scalable Logical Reasoning*) is an open-source framework for synthesizing, evaluating, and training Large Language Models (LLMs) on verifiable, scalable inductive reasoning tasks. Given a user-defined task specification, SLR synthesizes custom logic tasks of precisely tuned complexity and enables symbolic, annotation-free evaluation, making it an extensible platform for probing and improving the reasoning skills of LLMs.
 
 <p align="center">
   <img src="images/main.jpg" alt="SLR Overview" width="800">
 </p>
 
-*Figure 1: Overview of the SLR framework. The pipeline comprises formal task specification, automated synthesis, training (SFT or RL), and deterministic symbolic evaluation.*
+*SLR: End-to-end pipeline for logic task generation, deterministic symbolic evaluation, and logic-based LLM training.*
 
 ---
 
 ## Key Features
 
-- **Automatic Task Generation:** SLR synthesizes new inductive logic programming (ILP) tasks with custom logic, controlled challenge levels, and natural language prompts.
-- **Customizable & Scalable:** Users can specify their own logical vocabulary, grammar, and task configuration; the framework supports arbitrary task complexity.
-- **Symbolic Evaluation:** Tasks are evaluated via symbolic execution—no dependence on MCQA, EM, LLM-based judges, or human annotation.
-- **Curriculum Learning:** Train models on SRL-Bench increasing logical and combinatorial complexity.
+- 🔨 **Automatic Task Generation:** Synthesize new inductive reasoning tasks with controllable complexity, novel logic rules, and natural language prompts—no need for human annotation.
+- 🧩 **Programmable & Scalable:** Specify your own logic vocabulary, grammar, rule distributions, and task parameters; supports curriculum-style scaling and out-of-distribution task creation.
+- 🧠 **Symbolic, Automated Evaluation:** Deterministically verify LLM outputs via the validation program, not MCQA, LLM judge, or exact matching.
+- 📈 **Curriculum Learning:** Use SLR-Bench, a structured 20-level benchmark, for evaluating and training models across a span of logical challenges.
 
 ---
 
+## SLR-Bench: Benchmarking Reasoning at Scale
 
-## SLR-Bench: The Standard Benchmark Curriculum
-
-We instantiate SLR as **SLR-Bench**, a 20-level curriculum benchmark with over 19,000 prompts. Each curriculum tier (basic, easy, medium, hard) builds in both logical and combinatorial complexity.
+We instantiate SLR as **SLR-Bench**, an automatically generated reasoning benchmark for LLMs. SLR-Bench comprises 19,000+ prompts spanning 20 curriculum levels, from simple attribute lookups to advanced relational, arithmetic, and recursive tasks.
 
 <p align="center">
   <img src="images/SLR-Bench2.jpg" width="400">
 </p>
 
-*Figure 2: SLR-Bench curriculum progression. Task complexity rises rapidly; model accuracy (red) declines with challenge, exposing current LLM weaknesses.*
+*SLR-Bench: As logic complexity rises, model accuracy drops—exposing limits of contemporary LLMs and creating new challenges for future models.*
 
 ---
 
 ## How It Works
 
 ### 1. **Task Specification**
-
-Define a task language (vocabulary & grammar) and a task configuration:
-- **Vocabulary:** Constants, predicates, functions
-- **Grammar:** Constraints on meaningful atoms
-- **Config:** Rule sampling policies, rule length, background sampling, number of positive/negative examples
+- **Define a language**: List constants, predicates, and functional vocabulary with type/arity constraints.
+- **Configure task generation**: Set rule complexity, sampling policy, background knowledge distributions, and example count.
 
 ### 2. **Task Synthesis**
+- **Rule Synthesis**: Auto-generates a hidden ground-truth rule (randomly or LLM-guided) as the underlying hypothesis.
+- **Background/Label Generation**: Samples background atoms and labels queries through symbolic execution for positive/negative examples.
+- **Prompt Construction**: Outputs NL instruction prompts for the task.
+- **Reproducibility & Novelty**: Remove data leakage by guaranteeing no task/rule/test overlap with pretraining.
 
-An automated pipeline:
-- **Rule Synthesis:** Generate a latent ground-truth rule.
-- **Background Synthesis:** Build background atoms (facts) and create labeled examples via stratified sampling.
-- **Label Assignment:** Determine which examples satisfy the target rule.
-- **Prompt Creation:** Assemble human- and model-friendly instruction prompts.
+<p align="center">
+  <img src="images/prompt.png" width="800">
+</p>
 
-See the main figure for full flow.
+*Example: SLR-generated prompt and target rule (Level 1, SLR-Bench)*
 
 ### 3. **Training & Evaluation**
+- **Symbolic Judge**: Deterministically verifies candidate LLM solutions by logic execution, providing both full-task and per-example scoring.
+- **Supervised and RL Training**: Enables logic-tuning with ground-truth rules (SFT) or RL with verifiable feedback.
 
-- **Symbolic Judge:** Verifies hypotheses by running the candidate solution on all examples via logic execution.
-- **Metrics:** Binary task passing, partial scoring, syntax check
+---
 
-### 4. **Logic-Tuning/Meta-Learning**
+## Results & Benchmarks
 
-Enables both supervised fine-tuning (SFT) and RL-based approaches, with feedback from the symbolic judge guiding updates—improving logical reasoning from first principles.
+Below: SLR-Bench leaderboard (v0.1). Reasoning LLMs (e.g., OpenAI's o3) outperform base models, but incur massive test-time compute costs. Logic-tuned models (e.g., Llama-3-8B-FFT with SLR data) achieve strong gains at a tiny fraction of compute.
 
-
-## Main Results
-
-Below is the leaderboard for various LLMs on SLR-Bench (full table in the paper):
 <p align="center">
   <img src="images/SLR-Bench.png" width="800">
 </p>
 
-*Reasoning LLMs outperform base LLMs on logical accuracy but incur much higher compute requirements. However, logic-tuning with SLR dramatically boosts performance for base models at low cost.*
-
-
 ---
 
-## Example Task
+## Why SLR?
 
-Here is a sample prompt and target rule generated by SLR-Bench:
-
-<p align="center">
-  <img src="images/prompt.png" alt="SLR Overview" width="800">
-</p>
-
----
-
-
-## Current Status & Roadmap
-
-> **Code is under cleanup and will be released soon—stay tuned for the initial release and updates!**
->
-> Planned features for first release:
-> - Full SLR-Bench dataset (curriculum, splits, ground-truth, symbolic validator)
-> - End-to-end ILP task synthesizer & judge
-> - Examples for LLM evaluation & tuning
-> - Documentation and extensibility templates
-
+- **Extensible**: Swap in new logical vocabularies, grammars, or task domains without rewriting code.
+- **Verifiable**: No more MCQA guessing, hidden dataset contamination, or ambiguous grading. All evaluation is automated, symbolic, and fully reproducible.
+- **Scalable**: Automatically generate train/test datasets of arbitrary size or complexity—without annotation bottlenecks or data overlap with LLM pretraining.
+- **Model-Agnostic**: Works with both open and closed LLMs, and is compatible with SFT, RL, or other training loops.
 
 ---
 
 ## Getting Started
 
-<!-- **Coming soon!** Full installation and usage instructions (dataset generation, evaluation, training, and analyzing results) will appear here when the code is released. -->
+**Code Coming Soon!**  
+Planned for first release:
+- SLR-Bench dataset and splits (prompts, labels, ground truths, evaluator)
+- End-to-end synthesizer and scorer
+- Examples for model evaluation, curriculum-based finetuning
+- Documentation and easy extensibility templates
 
+---
 
-## Citing
+## Citation
 
-Coming soon! Please refer to the paper for citation details.
+If you use SLR or SLR-Bench in your work, please cite:
+
+> [Full citation and arXiv link once paper is public]
+
+---
+
+## License
+
+This repository is released under the MIT License.
+
+---
+
+### Contact
+
+Questions or suggestions? Open an issue or reach out via [slr-project.github.io](https://slr-project.github.io) or [email – placeholder].
+
+---
+
+## Acknowledgements
+
+We thank members of the broader LLM and logic programming community for insightful discussions and evaluation feedback.
