@@ -1,7 +1,7 @@
 
 # SLR: An Automated Synthesis Framework for Scalable Logical Reasoning
 
-[![Hugging Face](https://img.shields.io/badge/🤗%20Hugging%20Face-Datasets-yellow)](https://huggingface.co/datasets/AIML-TUDA/SLR)
+[![Hugging Face](https://img.shields.io/badge/🤗%20Hugging%20Face-Datasets-yellow)](https://huggingface.co/datasets/AIML-TUDA/SLR-Bench)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 > **Note:** Source code will be released soon! Dataset, evaluators, and instructions will follow shortly.
