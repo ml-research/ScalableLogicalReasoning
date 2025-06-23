@@ -46,5 +46,14 @@ Below is the leaderboard for various LLMs on SLR-Bench (V0.1):
 
 ## Citation
 
-Coming soon! Please refer to our paper for details.
-
+```bibtex
+@misc{helff2025slrautomatedsynthesisframework,
+      title={SLR: An Automated Synthesis Framework for Scalable Logical Reasoning}, 
+      author={Lukas Helff and Ahmad Omar and Felix Friedrich and Wolfgang Stammer and Antonia Wüst and Tim Woydt and Rupert Mitchell and Patrick Schramowski and Kristian Kersting},
+      year={2025},
+      eprint={2506.15787},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI},
+      url={https://arxiv.org/abs/2506.15787}, 
+}
+```
