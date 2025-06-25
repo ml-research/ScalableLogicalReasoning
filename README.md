@@ -12,9 +12,43 @@
 > Systematically evaluate model-generated rules via symbolic execution, fully automatic and verifiable. Supports evaluation and RLVR. 👉 [Eval & Reward Demo](https://huggingface.co/spaces/AIML-TUDA/VerifiableRewardsForScalableLogicalReasoning)
 
 --- 
+## Overview
 **SLR** (*Scalable Logical Reasoning*) is an end-to-end framework for systematic evaluation and training of Large Language Models (LLMs) through Scalable Logical Reasoning. Given a user’s task specification, SLR enables scalable, automated synthesis of inductive reasoning tasks with precisely controlled difficulty. For each task, SLR generates (i) a latent ground-truth rule, (ii) an executable validation program for deterministic, symbolic evaluation, and (iii) an instruction prompt for the reasoning task.
 With SLR, we introduce SLR-Bench—a benchmark of over 19,000 prompts across 20 curriculum levels, progressively increasing in relational, arithmetic, and recursive complexity. Large-scale evaluation shows that while modern LLMs can produce syntactically valid rules, they often struggle with correct logical inference. Recent reasoning-focused LLMs perform better but require much more compute, sometimes exceeding 15,000 completion tokens.
 Logic-tuning with SLR doubles Llama-3-8B’s accuracy on SLR-Bench, matching Gemini-Flash-Thinking at a fraction of the computational cost. SLR is fully automated, requires no human annotation, ensures dataset novelty, and provides a scalable environment for advancing LLM reasoning capabilities.
+
+---
+## Quick start SLR-Bench
+
+### Loading the Dataset
+```python
+from datasets import load_dataset
+# Load SLR-Bench test split
+ds = load_dataset("AIML-TUDA/SLR-Bench", "v1-All", split="test")
+```
+### Evaluate using SLR-Bench
+```python
+from evaluate import load
+symbolic_judge = load("AIML-TUDA/VerifiableRewardsForScalableLogicalReasoning")
+rules = ds["ground-truth rule"]  # For demo only—use model predictions in practice
+references = [
+    {
+        "validation_program": p,
+        "evaluation_config": {
+            "positive_predicate": "eastbound",
+            "negative_predicate": "westbound"
+        }
+    } for p in ds["validation program"]
+]
+
+results = symbolic_judge.compute(predictions=rules, references=references)
+print(results)
+```
+*Note: For real evaluation, replace `rules` with your model's predicted rules. Here, we use ground-truth rules for demonstration only.*
+
+---
+
+
 
 - 🔨 **Automatic Task Generation:** Synthesize new inductive reasoning tasks with controllable complexity, novel logic rules, and natural language prompts—no need for human annotation.
 - 🧩 **Programmable & Scalable:** Specify your own logic vocabulary, grammar, rule distributions, and task parameters; supports curriculum-style scaling and out-of-distribution task creation.
@@ -27,6 +61,7 @@ Logic-tuning with SLR doubles Llama-3-8B’s accuracy on SLR-Bench, matching Gem
 *SLR: End-to-end pipeline for logic task generation, deterministic symbolic evaluation, and logic-based LLM training.*
 
 ---
+
 
 ## SLR-Bench: Benchmarking Reasoning at Scale
 
