@@ -27,6 +27,16 @@ from datasets import load_dataset
 ds = load_dataset("AIML-TUDA/SLR-Bench", "v1-All", split="test")
 ```
 ### Evaluate using SLR-Bench
+Requires the [`evaluate`](https://huggingface.co/docs/evaluate/) library and a Prolog interpreter installed on your system (e.g., [SWI-Prolog](https://www.swi-prolog.org/)).
+Install the required dependencies via:
+
+```bash
+pip install evaluate
+sudo apt-get install swi-prolog
+```
+
+#### Example Usage
+
 ```python
 from evaluate import load
 symbolic_judge = load("AIML-TUDA/VerifiableRewardsForScalableLogicalReasoning")
@@ -44,7 +54,9 @@ references = [
 results = symbolic_judge.compute(predictions=rules, references=references)
 print(results)
 ```
+
 *Note: For real evaluation, replace `rules` with your model's predicted rules. Here, we use ground-truth rules for demonstration only.*
+
 
 ---
 
