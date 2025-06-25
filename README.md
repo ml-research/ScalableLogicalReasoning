@@ -2,10 +2,14 @@
 # SLR: An Automated Synthesis Framework for Scalable Logical Reasoning
 
 [![Hugging Face](https://img.shields.io/badge/🤗%20Hugging%20Face-Datasets-yellow)](https://huggingface.co/datasets/AIML-TUDA/SLR-Bench)
+[![Eval & Reward Model](https://img.shields.io/badge/%F0%9F%A4%96%20Reward%20Model-HF-blueviolet)](https://huggingface.co/spaces/AIML-TUDA/VerifiableRewardsForScalableLogicalReasoning)
 [![arXiv](https://img.shields.io/badge/arXiv-2506.15787-b31b1b.svg)](https://arxiv.org/abs/2506.15787)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-> **Note:** Source code will be released soon! Dataset, evaluators, and instructions will follow shortly.
+> **Note:** Source code of the generation pipeline will follow shortly.
+
+> **🆕 June 2024: Reward Model & Evaluation Pipeline Released!**  
+> Systematically evaluate model-generated rules via symbolic execution, fully automatic and verifiable. Supports evaluation and RLVR. 👉 [Eval & Reward Demo](https://huggingface.co/spaces/AIML-TUDA/VerifiableRewardsForScalableLogicalReasoning)
 
 --- 
 **SLR** (*Scalable Logical Reasoning*) is an end-to-end framework for systematic evaluation and training of Large Language Models (LLMs) through Scalable Logical Reasoning. Given a user’s task specification, SLR enables scalable, automated synthesis of inductive reasoning tasks with precisely controlled difficulty. For each task, SLR generates (i) a latent ground-truth rule, (ii) an executable validation program for deterministic, symbolic evaluation, and (iii) an instruction prompt for the reasoning task.
