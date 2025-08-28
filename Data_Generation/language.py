@@ -5,7 +5,7 @@ MANDATORY_IDENTIFIERS = [
     "object_identifier",         # e.g. "Train"
     "subobject_identifier",      # e.g. "Car"
     "super_to_sub_predicate",    # e.g. "has_car"
-    "subobject_numerating_predicate", # e.g. "car_num"
+    # "subobject_numerating_predicate" is now optional
     "positive_label", # e.g. "eastbound"
     "negative_label"  # e.g. "westbound"
 ]
@@ -29,6 +29,9 @@ class Vocabulary:
         missing = [k for k in MANDATORY_IDENTIFIERS if k not in self.identifiers]
         if missing:
             raise ValueError(f"Missing mandatory identifiers: {missing}")
+        # Set subobject_numerating_predicate to empty string if not provided
+        if 'subobject_numerating_predicate' not in self.identifiers:
+            self.identifiers['subobject_numerating_predicate'] = 'DEFAULT_Numerating_Predicate'
 
 
 @dataclass

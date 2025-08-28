@@ -12,7 +12,7 @@ identifiers = {
     "object_identifier": "House",
     "subobject_identifier": "Room",
     "super_to_sub_predicate": "has_room",
-    "subobject_numerating_predicate": "room_num",
+    # "subobject_numerating_predicate": "room_num",  # Optional: Set this if you want subobject numbers (e.g. room_num) to be assigned in ascending order and each unique instead of randomly
     "positive_label": "northbound",
     "negative_label": "southbound"
 }

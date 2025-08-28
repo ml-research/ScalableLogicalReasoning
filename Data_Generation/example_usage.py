@@ -12,7 +12,7 @@ identifiers = {
     "object_identifier": "Train",
     "subobject_identifier": "Car",
     "super_to_sub_predicate": "has_car",
-    "subobject_numerating_predicate": "car_num",
+    "subobject_numerating_predicate": "car_num", # Optional: Set this if you want subobject numbers (e.g. car_num) to be assigned in ascending order and each unique instead of randomly
     "positive_label": "eastbound",
     "negative_label": "westbound"
 }
