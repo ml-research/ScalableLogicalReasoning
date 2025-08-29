@@ -1,7 +1,3 @@
-from language import Language
-
-
-
 class ValidationProgram():
     """
     Represents a validation program consisting of background facts, positive examples, and negative examples.
