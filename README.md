@@ -108,7 +108,30 @@ This pipeline allows researchers and practitioners to automate the creation of c
 
 ### Defining a Custom Logic Domain
 
-To synthesize new benchmarks, first specify the logical domain via a set of data structures:
+To synthesize new benchmarks, you must specify the logical domain using several key data structures:
+
+  **1. `identifiers` (mandatory):**
+  Defines the main object and subobject types, the relation between them, and the task labels. This dictionary is required for every domain and ensures the framework can generate and interpret logical structures correctly.
+
+  - `object_identifier`: The main entity type (e.g., "Train").
+  - `subobject_identifier`: The sub-entity type (e.g., "Car").
+  - `super_to_sub_predicate`: The predicate linking main objects to subobjects (e.g., "has_car").
+  - `subobject_numerating_predicate` (optional but highly recommended): Use this if your subobjects have a natural order or numbering (e.g., "car_num"). Setting this is crucial for tasks where the structure or order of subobjects matters, such as mirror or symmetry-based tasks. If not set, subobject numbers may be assigned randomly, which can lead to ambiguous or incorrect behavior in such cases.
+  - `positive_label` / `negative_label`: The target classification labels for the reasoning task.
+
+  **2. `predicates`:**
+  Lists all predicates in the domain and their arity (number of arguments). This defines the logical vocabulary available for rule synthesis and background generation.
+
+  **3. `predicate_arg_types`:**
+  Specifies the argument types for each predicate, mapping each argument to a domain type. This ensures that only semantically valid groundings are generated.
+
+  **4. `constants`:**
+  Enumerates all constants for each type in the domain (objects, subobjects, attributes, etc.). This provides the set of possible values for each argument type.
+
+  **5. `validate_grounding` (as grammar):**
+  A function that encodes domain-specific logical constraints, restricting which predicate groundings are valid. For example, you can enforce that only short cars have two wheels, or that passenger cars cannot have payloads. This function is passed to the `Grammar` class and is essential for generating only meaningful and consistent data.
+
+  Below is a full example for the Train/Car domain:
 
 ```python
 identifiers = {
@@ -209,7 +232,17 @@ language = Language(vocab=vocab, grammar=grammar)
 
 ### Synthesizing Tasks: Example Usage
 
-Once the domain is defined, SLR can generate tasks with different rule and background sampling strategies. The synthesizer produces the ground-truth rule, validation program, and prompt for each task:
+
+Once the domain is defined, SLR can generate tasks with different rule and background sampling strategies. The synthesizer produces the ground-truth rule, validation program, and prompt for each task.
+
+**TaskConfig** specifies how each task is generated. Its main parameters are:
+
+- `Rlen`: Length/complexity of the rule to synthesize (e.g., number of literals).
+- `Rsample`: Rule sampling strategy (`'random'` for random rules, `'llm_guided'` for LLM-generated rules).
+- `B_pi`: Background distribution; can be `'uniform'`, `'mirror'`, or a custom dictionary specifying probabilities for predicate values.
+- `kappa`: Tuple controlling the number of positive/negative examples (e.g., `(1,1)`).
+
+By adjusting these parameters, you can control the complexity, diversity, and background structure of the generated reasoning tasks.
 
 ```python
 # Example 1: Random rule, uniform background
