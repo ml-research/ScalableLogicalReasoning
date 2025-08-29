@@ -6,9 +6,9 @@
 [![arXiv](https://img.shields.io/badge/arXiv-2506.15787-b31b1b.svg)](https://arxiv.org/abs/2506.15787)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-> **🆕 August 2025: Source code of the generation pipeline is now available.
+> 🆕 August 2025: Source code of the generation pipeline is now available.
 
-> **🆕 June 2025: Reward Model & Evaluation Pipeline Released!**  
+> 🆕 June 2025: Reward Model & Evaluation Pipeline Released!**  
 > Systematically evaluate model-generated rules via symbolic execution, fully automatic and verifiable. Supports evaluation and RLVR. 👉 [Eval & Reward Demo](https://huggingface.co/spaces/AIML-TUDA/VerifiableRewardsForScalableLogicalReasoning)
 
 --- 
