@@ -207,7 +207,7 @@ class BackgroundGenerator():
                         var_groundings = constants[pred_input]
                         var_grounding = random.choice(var_groundings)
                         predicate_sampling_count = 0
-                        while not language.grammar.validate_grounding(predicates_value_map, subobject_predicate, var_grounding) or var_grounding == value_in_rule:
+                        while not language.grammar.validate_grounding(predicates_value_map, subobject_predicate, var_grounding):
                             var_grounding = random.choice(var_groundings)
                             predicate_sampling_count += 1
                             if predicate_sampling_count > 1000:
