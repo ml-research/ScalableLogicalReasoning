@@ -83,7 +83,7 @@ class TaskSynthesiser():
                 continue
 
         # Create the validation program and the prompt
-        program = ValidationProgram(background=background, positives=positive_examples, negatives=negative_examples)
+        program = ValidationProgram(background=background, positives=positive_examples, negatives=negative_examples, language=language)
         prompt = PromptGenerator.generate_prompt(background=background, positives=positive_examples, negatives=negative_examples, language=language)
 
         return rule, program, prompt
