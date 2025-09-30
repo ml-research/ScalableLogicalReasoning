@@ -279,13 +279,12 @@ This approach enables systematic, large-scale synthesis of logic benchmarks for 
 ## Citation
 
 ```bibtex
-@misc{helff2025slrautomatedsynthesisscalable,
+@incollection{helff2025slrautomatedsynthesisscalable,
       title={SLR: Automated Synthesis for Scalable Logical Reasoning}, 
       author={Lukas Helff and Ahmad Omar and Felix Friedrich and Antonia Wüst and Hikaru Shindo and Rupert Mitchell and Tim Woydt and Patrick Schramowski and Wolfgang Stammer and Kristian Kersting},
       year={2025},
-      eprint={2506.15787},
-      archivePrefix={arXiv},
-      primaryClass={cs.AI},
+      booktitle ={Working Notes of the NeurIPS Workshop on Foundations of Reasoning in Language Models},
       url={https://arxiv.org/abs/2506.15787}, 
 }
+
 ```
