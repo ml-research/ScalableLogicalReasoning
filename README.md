@@ -1,23 +1,43 @@
 
-# SLR: An Automated Synthesis Framework for Scalable Logical Reasoning
+# SLR: An Automated Synthesis Framework for Scalable Logical Reasoning [ACL 2026]
 
-[![Hugging Face](https://img.shields.io/badge/🤗%20Hugging%20Face-Datasets-yellow)](https://huggingface.co/datasets/AIML-TUDA/SLR-Bench)
-[![Eval & Reward Model](https://img.shields.io/badge/%F0%9F%A4%96%20Reward%20Model-HF-blueviolet)](https://huggingface.co/spaces/AIML-TUDA/VerifiableRewardsForScalableLogicalReasoning)
+[![Hugging Face](https://img.shields.io/badge/🤗_HF-SLR--Bench-yellow)](https://huggingface.co/datasets/AIML-TUDA/SLR-Bench)
+[![HF](https://img.shields.io/badge/🤗_HF-Leaderboard-ffd21e)](https://huggingface.co/spaces/AIML-TUDA/slr-leaderboard)
 [![arXiv](https://img.shields.io/badge/arXiv-2506.15787-b31b1b.svg)](https://arxiv.org/abs/2506.15787)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-> 🆕 August 2025: Source code of the generation pipeline is now available.
-
-> 🆕 June 2025: Reward Model & Evaluation Pipeline Released!**  
-> Systematically evaluate model-generated rules via symbolic execution, fully automatic and verifiable. Supports evaluation and RLVR. 👉 [Eval & Reward Demo](https://huggingface.co/spaces/AIML-TUDA/VerifiableRewardsForScalableLogicalReasoning)
-
---- 
-## Overview
 **SLR** (*Scalable Logical Reasoning*) is an end-to-end framework for systematic evaluation and training of Large Language Models (LLMs) through Scalable Logical Reasoning. Given a user’s task specification, SLR enables scalable, automated synthesis of inductive reasoning tasks with precisely controlled difficulty. For each task, SLR generates (i) a latent ground-truth rule, (ii) an executable validation program for deterministic, symbolic evaluation, and (iii) an instruction prompt for the reasoning task.
 With SLR, we introduce SLR-Bench—a benchmark of over 19,000 prompts across 20 curriculum levels, progressively increasing in relational, arithmetic, and recursive complexity. Large-scale evaluation shows that while modern LLMs can produce syntactically valid rules, they often struggle with correct logical inference. Recent reasoning-focused LLMs perform better but require much more compute, sometimes exceeding 15,000 completion tokens.
 Logic-tuning with SLR doubles Llama-3-8B’s accuracy on SLR-Bench, matching Gemini-Flash-Thinking at a fraction of the computational cost. SLR is fully automated, requires no human annotation, ensures dataset novelty, and provides a scalable environment for advancing LLM reasoning capabilities.
 
----
+
+## Variants and related releases
+ 
+**→ Multilingual versions of SLR-Bench:**
+ 
+[![English](https://img.shields.io/badge/SLR--Bench-English%20%F0%9F%87%AC%F0%9F%87%A7-orange)](https://huggingface.co/datasets/AIML-TUDA/SLR-Bench)
+[![German](https://img.shields.io/badge/SLR--Bench-German%20%F0%9F%87%A9%F0%9F%87%AA-red)](https://huggingface.co/datasets/AIML-TUDA/SLR-Bench-German)
+[![Spanish](https://img.shields.io/badge/SLR--Bench-Spanish%20%F0%9F%87%AA%F0%9F%87%B8-yellow)](https://huggingface.co/datasets/AIML-TUDA/SLR-Bench-Spanish)
+[![French](https://img.shields.io/badge/SLR--Bench-French%20%F0%9F%87%AB%F0%9F%87%B7-blue)](https://huggingface.co/datasets/AIML-TUDA/SLR-Bench-French)
+[![Portuguese](https://img.shields.io/badge/SLR--Bench-Portuguese%20%F0%9F%87%B5%F0%9F%87%B9-darkred)](https://huggingface.co/datasets/AIML-TUDA/SLR-Bench-Portuguese)
+[![Italian](https://img.shields.io/badge/SLR--Bench-Italian%20%F0%9F%87%AE%F0%9F%87%B9-darkblue)](https://huggingface.co/datasets/AIML-TUDA/SLR-Bench-Italian)
+[![Dutch](https://img.shields.io/badge/SLR--Bench-Dutch%20%F0%9F%87%B3%F0%9F%87%B1-darkorange)](https://huggingface.co/datasets/AIML-TUDA/SLR-Bench-Dutch)
+ 
+**→ Out-of-distribution, evaluate on a different SLR task:**
+ 
+[![SLR-Homes](https://img.shields.io/badge/SLR--Homes-OOD-orange)](https://huggingface.co/datasets/AIML-TUDA/SLR-Homes) 
+ 
+**→ Use SLR to detect Reward Hacking in LLMs:**
+
+[![GitHub](https://img.shields.io/badge/Code-GitHub-blue)](https://github.com/ml-research/llms-gaming-verifiers)
+[![arXiv](https://img.shields.io/badge/arXiv-2506.15787-b31b1b.svg)](https://arxiv.org/abs/2604.15149)
+
+**→ Check-out HF Evaluators:**
+
+[![HF Evaluator](https://img.shields.io/badge/🤗_HF-Evaluator-ffd21e)](https://huggingface.co/spaces/AIML-TUDA/VerifiableRewardsForScalableLogicalReasoning)
+[![HF Evaluator (IPT)](https://img.shields.io/badge/🤗_HF-IPT--Evaluator-ffd21e)](https://huggingface.co/spaces/AIML-TUDA/IsomorphicPerturbationTesting)
+
+
 ## Quick start SLR-Bench
 
 ### Loading the Dataset
@@ -278,13 +298,31 @@ This approach enables systematic, large-scale synthesis of logic benchmarks for 
 
 ## Citation
 
-```bibtex
-@incollection{helff2025slrautomatedsynthesisscalable,
-      title={SLR: Automated Synthesis for Scalable Logical Reasoning}, 
-      author={Lukas Helff and Ahmad Omar and Felix Friedrich and Antonia Wüst and Hikaru Shindo and Rupert Mitchell and Tim Woydt and Patrick Schramowski and Wolfgang Stammer and Kristian Kersting},
-      year={2025},
-      booktitle ={Working Notes of the NeurIPS Workshop on Foundations of Reasoning in Language Models},
-      url={https://arxiv.org/abs/2506.15787}, 
-}
+If you use this work, please cite:
 
+```bibtex
+@inproceedings{helff2025slr,
+  title     = {{SLR: Automated Synthesis for Scalable Logical Reasoning}},
+  author    = {Helff, Lukas and Omar, Ahmad and Friedrich, Felix and W{\"u}st, Antonia
+               and Shindo, Hikaru and Woydt, Tim and Mitchell, Rupert
+               and Schramowski, Patrick and Stammer, Wolfgang and Kersting, Kristian},
+  booktitle = {Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (ACL 2026)},
+  year      = {2026},
+  url       = {https://openreview.net/forum?id=omMnuTTEn7}
+}
 ```
+If you use SLR-Bench to detect Reward Hacking, please also cite:
+
+```bibtex
+@inproceedings{helff2026llms,
+  title     = {{LLMs Gaming Verifiers: RLVR can Lead to Reward Hacking}},
+  author    = {Lukas Helff and Quentin Delfosse and David Steinmann and Ruben H{\"a}rle
+               and Hikaru Shindo and Patrick Schramowski and Wolfgang Stammer
+               and Kristian Kersting and Felix Friedrich},
+  booktitle = {ICLR 2026 Workshop on Logical Reasoning of Large Language Models},
+  year      = {2026},
+  url       = {https://openreview.net/forum?id=4B3WfRNqe3}
+}
+```
+
+
