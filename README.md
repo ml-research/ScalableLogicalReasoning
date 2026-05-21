@@ -1,5 +1,5 @@
 
-# SLR: An Automated Synthesis Framework for Scalable Logical Reasoning [ACL 2026]
+# SLR: Automated Synthesis for Scalable Logical Reasoning [ACL 2026]
 
 [![Hugging Face](https://img.shields.io/badge/🤗_HF-SLR--Bench-yellow)](https://huggingface.co/datasets/AIML-TUDA/SLR-Bench)
 [![HF](https://img.shields.io/badge/🤗_HF-Leaderboard-ffd21e)](https://huggingface.co/spaces/AIML-TUDA/slr-leaderboard)
